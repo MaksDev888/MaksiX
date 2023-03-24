@@ -1,14 +1,22 @@
 from django.contrib.auth import authenticate
 from rest_framework import serializers
 
-from .models import *
+from .models import UserProfile
+from .services import check_created_email
 
 
 class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserProfile
-        fields = ('id', 'email', 'full_name','username', 'bio')
+        fields = ('id', 'username', 'first_name', 'last_name', 'email', 'bio', 'years_old', 'address', 'avatar')
+
+
+class ShortUserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = UserProfile
+        fields = ('full_name', 'username', 'bio')
 
 
 class CreateUserSerializer(serializers.ModelSerializer):
@@ -21,7 +29,7 @@ class CreateUserSerializer(serializers.ModelSerializer):
 
     def validate(self, attrs):
         email = attrs.get('email', '').strip().lower()
-        if UserProfile.objects.filter(email=email).exists():
+        if check_created_email(email):
             raise serializers.ValidationError('User with this email id already exists.')
         return attrs
 
@@ -33,11 +41,10 @@ class CreateUserSerializer(serializers.ModelSerializer):
 class UpdateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
-        fields = ('first_name', 'last_name', 'bio', 'password', 'albums')
+        fields = ('first_name', 'last_name', 'bio', 'password', 'avatar')
 
     def update(self, instance, validated_data):
         password = validated_data.pop('password')
-        print(validated_data)
         if password:
             instance.set_password(password)
         instance = super().update(instance, validated_data)
@@ -55,7 +62,7 @@ class LoginSerializer(serializers.Serializer):
         if not email or not password:
             raise serializers.ValidationError("Please give both email and password.")
 
-        if not UserProfile.objects.filter(email=email).exists():
+        if not check_created_email(email):
             raise serializers.ValidationError('Email does not exist.')
 
         user = authenticate(request=self.context.get('request'), email=email,
@@ -65,5 +72,3 @@ class LoginSerializer(serializers.Serializer):
 
         attrs['user'] = user
         return attrs
-
-

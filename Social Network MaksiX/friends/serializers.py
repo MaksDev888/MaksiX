@@ -1,6 +1,11 @@
 from rest_framework import serializers
 
-from .models import *
+from .models import Friend
+
+
+class FriendsApiList(serializers.Serializer):
+    from_user = serializers.CharField()
+
 
 class FriendsAPISerializer(serializers.ModelSerializer):
 
@@ -10,3 +15,5 @@ class FriendsAPISerializer(serializers.ModelSerializer):
     class Meta:
         model = Friend
         fields = '__all__'
+
+

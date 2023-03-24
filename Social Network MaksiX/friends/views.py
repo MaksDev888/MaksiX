@@ -1,51 +1,37 @@
-from django.shortcuts import render, get_object_or_404
-from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework import status
-from knox.auth import TokenAuthentication
+from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth import get_user_model
+
+from .serializers import FriendsAPISerializer, FriendsApiList
+from .services_friends import get_user_pk, get_user_subscribers, delete_sub_relation
+
+user_model=get_user_model()
 
 
+class UserViewSet(viewsets.ViewSet):
+    permission_classes = [IsAuthenticated, ]
 
-from userdata.models import UserProfile
-from .serializers import *
-from .models import Friend
+    def list(self, request):
+        queryset = get_user_subscribers(request.user)
+        serializer = FriendsApiList(queryset, many=True, partial=True)
+        return Response(serializer.data)
 
+    def create(self, request):
+        if request.data.get('username')==None:
+            return Response('Current user does not exists')
+        else:
+            request.data['from_user'] = get_user_pk(request.data['username'])
+            request.data['to_user'] = request.user.pk
+            serializer = FriendsAPISerializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
 
-try:
-    from django.contrib.auth import get_user_model
-    user_model = get_user_model()
-except ImportError:
-    from django.contrib.auth.models import User
+            serializer.save()
+            return Response({'You subscribed to': request.data['username']})
 
-    user_model = User
+    def destroy(self, request, pk=None):
+        delete_sub_relation(request.user, from_user=pk)
+        return Response('Unsubscribed')
 
-
-class UserAPIFriends(APIView):
-    permission_classes = (AllowAny,)
-
-    def get(self, request, username):
-        """ View the friends of a user """
-        user = get_object_or_404(user_model, username=username)
-        qs = Friend.objects.select_related("from_user").filter(to_user=user)
-        username_list = []
-        total = 0
-        for i in qs:
-            follower_username = str(i.from_user)
-            username_list.append(follower_username)
-            total += 1
-        return Response(username_list, status=status.HTTP_200_OK)
-
-
-class FollowAPIFriend(APIView):
-    authentication_classes = [TokenAuthentication, ]
-    permission_classes = [AllowAny, ]
-
-    def post(self, request):
-        from_user = str(UserProfile.objects.get(id=request.data.get('from_user')))
-        serializer = FriendsAPISerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response({'You subscribed to': from_user})
 
 

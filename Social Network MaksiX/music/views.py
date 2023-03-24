@@ -1,20 +1,23 @@
-from knox.auth import TokenAuthentication
-from rest_framework.generics import ListCreateAPIView
+from rest_framework.decorators import action
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework import status
-from rest_framework.views import APIView
+from rest_framework import status, viewsets
 
-from userdata.models import UserProfile
 from .serializer import *
-from .models import *
+from .services_music import\
+    get_songs,\
+    get_own_list_song,\
+    delete_song,\
+    get_album_list,\
+    get_own_list_album
 
-class AlbumAPIList(ListCreateAPIView):
-    authentication_classes = [TokenAuthentication,]
+
+class AlbumViewSet(viewsets.ModelViewSet):
+    queryset = get_album_list()
     serializer_class = AlbumPostAPISerializer
-    queryset = Album.objects.all()
+    permission_classes = [IsAuthenticated, ]
 
-
-    def post(self, request):
+    def create(self, request, *args, **kwargs):
         request.data['performer'] = request.user.id
         serializer = AlbumPostAPISerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -22,25 +25,24 @@ class AlbumAPIList(ListCreateAPIView):
 
         return Response({'post': serializer.data}, status=status.HTTP_200_OK)
 
-class SongAPIList(APIView):
-    authentication_classes = [TokenAuthentication,]
+    @action(detail=False, methods=['get'])
+    def user_albums(self, request):
+        user_album = get_own_list_album(request.user)
+        serializer = AlbumPostAPISerializer(user_album, many=True)
 
-    def get(self, request):
-        songs = Song.objects.all()
-        serializer = SongPostAPISerializer(songs, many=True)
-
-        return Response({'songs': serializer.data})
+        return Response(serializer.data)
 
 
-    def post(self, request):
-        serializer = SongPostAPISerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
+class SongViewSet(viewsets.ModelViewSet):
+    queryset = get_songs()
+    serializer_class = SongSerializer
+    permission_classes = [IsAuthenticated, ]
 
-        return Response({'post': serializer.data}, status=status.HTTP_200_OK)
+    def destroy(self, request, pk):
+        return delete_song(user=request.user, song_id=pk)
 
-
-    def delete(self, request):
-        user = request.user
-        user.songs.remove(request.data['id'])
-        return Response({'Song deleted'})
+    @action(detail=False, methods=['get'])
+    def user_songs(self, request):
+        user_songs = get_own_list_song(request.user)
+        serializer = SongSerializer(user_songs, many=True)
+        return Response(serializer.data)

@@ -44,11 +44,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
-    'userdata',
-    'friends',
-    'music',
-    'posts',
     'knox',
+
+    'userdata.apps.UserdataConfig',
+    'friends.apps.FriendsConfig',
+    'music.apps.MusicConfig',
+    'posts.apps.PostsConfig',
+
 ]
 
 MIDDLEWARE = [

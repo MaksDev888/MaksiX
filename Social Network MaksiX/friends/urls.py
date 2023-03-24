@@ -1,7 +1,11 @@
 from django.urls import path, include
-from .views import *
+from rest_framework import routers
+
+from friends.views import UserViewSet
+
+router = routers.DefaultRouter()
+router.register(r'subscribers', UserViewSet, basename='subscribers')
 
 urlpatterns = [
-    path('friends-list/<str:username>/', UserAPIFriends.as_view()),
-    path('friend-request/', FollowAPIFriend.as_view()),
+    path('', include(router.urls)),
 ]

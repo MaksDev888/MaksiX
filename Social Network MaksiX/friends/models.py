@@ -7,9 +7,9 @@ from config.settings import AUTH_USER_MODEL
 
 
 class Friend(models.Model):
-    to_user = models.ForeignKey(AUTH_USER_MODEL, models.CASCADE, related_name="friends")
+    to_user = models.ForeignKey(AUTH_USER_MODEL, models.CASCADE, related_name="friends", verbose_name='Отправитель')
     from_user = models.ForeignKey(
-        AUTH_USER_MODEL, models.CASCADE, related_name="_unused_friend_relation"
+        AUTH_USER_MODEL, models.CASCADE, verbose_name='Получатель'
     )
     created = models.DateTimeField(default=timezone.now)
 
@@ -19,11 +19,14 @@ class Friend(models.Model):
         unique_together = ("from_user", "to_user")
 
     def __str__(self):
-        return f"User #{self.to_user} is friends with #{self.from_user}"
+        return f"User #{self.to_user} is subscribed with #{self.from_user}"
 
     def save(self, *args, **kwargs):
-        # Ensure users can't be friends with themselves
         if self.to_user == self.from_user:
             raise ValidationError("Users cannot be friends with themselves.")
         super().save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = 'Subscribers'
+        verbose_name_plural = 'Subscribers'
 

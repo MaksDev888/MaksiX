@@ -1,5 +1,9 @@
 from django.contrib import admin
-from .models import *
+from .models import Friend
 
 
-admin.site.register(Friend)
+class FriendAdmin(admin.ModelAdmin):
+    list_display = ('id', 'to_user', 'from_user')
+
+
+admin.site.register(Friend, FriendAdmin)
