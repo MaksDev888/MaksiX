@@ -21,14 +21,13 @@ from django.urls import include
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
     # path('api-auth/', include('rest_framework.urls')),
-    path('MaksiX/profile/', include('userdata.urls')),
-    path('MaksiX/friends/', include('friends.urls')),
-    path('MaksiX/music/', include('music.urls')),
-    path('MaksiX/posts/', include('posts.urls')),
+    path("MaksiX/profile/", include("userdata.urls")),
+    path("MaksiX/friends/", include("friends.urls")),
+    path("MaksiX/music/", include("music.urls")),
+    path("MaksiX/posts/", include("posts.urls")),
     # path('MaksiX/subscribers/', include('subscribers.urls')),
-
 ]
 
 if settings.DEBUG:

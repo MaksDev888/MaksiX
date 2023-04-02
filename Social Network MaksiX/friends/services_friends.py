@@ -1,5 +1,5 @@
 from userdata.models import UserProfile
-from .models import Friend
+from friends.models import Friend
 
 
 def get_user_pk(username):

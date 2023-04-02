@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Posts
+from posts.models import Posts
 
 
 admin.site.register(Posts)

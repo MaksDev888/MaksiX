@@ -1,10 +1,11 @@
 from rest_framework import serializers
 
-from .models import Posts
+from posts.models import Posts
 
 
 class PostAPISerializer(serializers.ModelSerializer):
+    owner = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta:
         model = Posts
-        fields = '__all__'
+        fields = ("id", "title", "description", "post_image", "owner")

@@ -1,11 +1,14 @@
 from django.contrib import admin
-from .models import *
+from music.models import Album, Song
+
 
 class AlbumAdmin(admin.ModelAdmin):
-    list_display = ('name', 'performer','description')
+    list_display = ("name", "performer", "description")
+
 
 class SongAdmin(admin.ModelAdmin):
-    list_display = ('name', 'artist', 'album')
+    list_display = ("name", "artist", "album")
+
 
 admin.site.register(Album, AlbumAdmin)
 admin.site.register(Song, SongAdmin)

@@ -3,27 +3,24 @@ from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from .services_posts import get_own_posts, get_user_by_pk, get_all_posts
-from .serializer import PostAPISerializer
+from posts.services_posts import get_own_posts, get_user_by_pk, get_all_posts
+from posts.serializer import PostAPISerializer
 
 
-class PostViewSet(viewsets.ViewSet):
-    permission_classes = [IsAuthenticated, ]
+class PostViewSet(viewsets.ModelViewSet):
+    serializer_class = PostAPISerializer
+    permission_classes = [
+        IsAuthenticated,
+    ]
 
-    def list(self, request):
-        qs = get_own_posts(request.user)
-        serializer = PostAPISerializer(qs, many=True)
-        return Response(serializer.data)
+    def get_queryset(self):
+        self.queryset = get_own_posts(self.request.user)
+        return self.queryset
 
-    def post(self, request):
-        request.data['owner'] = request.user.id
-        serializer = PostAPISerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
+    def perform_create(self, serializer):
+        instance = serializer.save(owner=self.request.user)
 
-        return Response({'post': serializer.data})
-
-    @action(detail=True, methods=['get'], url_name='look_post', url_path='look-post')
+    @action(detail=True, methods=["get"], url_name="posts", url_path="posts")
     def check_user_post(self, request, pk=None):
         user = get_user_by_pk(pk)
         user_post = get_all_posts(user)

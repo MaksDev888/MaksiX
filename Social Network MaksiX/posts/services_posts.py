@@ -1,5 +1,5 @@
 from userdata.models import UserProfile
-from .models import Posts
+from posts.models import Posts
 
 
 def get_own_posts(user):

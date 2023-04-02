@@ -5,15 +5,19 @@ import userdata.models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('userdata', '0001_initial'),
+        ("userdata", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='userprofile',
-            name='avatar',
-            field=models.ImageField(blank=True, null=True, upload_to=userdata.models.user_directory_path, verbose_name='Изображение страницы'),
+            model_name="userprofile",
+            name="avatar",
+            field=models.ImageField(
+                blank=True,
+                null=True,
+                upload_to=userdata.models.user_directory_path,
+                verbose_name="Изображение страницы",
+            ),
         ),
     ]

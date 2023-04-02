@@ -6,31 +6,79 @@ import music.models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Album',
+            name="Album",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255)),
-                ('performer', models.CharField(blank=True, max_length=255, verbose_name='Исполнитель')),
-                ('photo', models.ImageField(blank=True, upload_to=music.models.user_directory_path_for_album_image, verbose_name='Фото альбома')),
-                ('description', models.CharField(blank=True, max_length=700)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=255)),
+                (
+                    "performer",
+                    models.CharField(
+                        blank=True, max_length=255, verbose_name="Исполнитель"
+                    ),
+                ),
+                (
+                    "photo",
+                    models.ImageField(
+                        blank=True,
+                        upload_to=music.models.user_directory_path_for_album_image,
+                        verbose_name="Фото альбома",
+                    ),
+                ),
+                ("description", models.CharField(blank=True, max_length=700)),
             ],
         ),
         migrations.CreateModel(
-            name='Song',
+            name="Song",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255, verbose_name='Название песни')),
-                ('artist', models.CharField(max_length=255, verbose_name='Исполнитель')),
-                ('photo', models.ImageField(blank=True, upload_to=music.models.user_directory_path_for_song_image, verbose_name='Фото песни')),
-                ('album', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='music.album', verbose_name='Альбом')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(max_length=255, verbose_name="Название песни"),
+                ),
+                (
+                    "artist",
+                    models.CharField(max_length=255, verbose_name="Исполнитель"),
+                ),
+                (
+                    "photo",
+                    models.ImageField(
+                        blank=True,
+                        upload_to=music.models.user_directory_path_for_song_image,
+                        verbose_name="Фото песни",
+                    ),
+                ),
+                (
+                    "album",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="music.album",
+                        verbose_name="Альбом",
+                    ),
+                ),
             ],
         ),
     ]

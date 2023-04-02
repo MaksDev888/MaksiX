@@ -5,16 +5,20 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('music', '0002_initial'),
+        ("music", "0002_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='song',
-            name='user',
-            field=models.ManyToManyField(blank=True, related_name='songs', to=settings.AUTH_USER_MODEL, verbose_name='пользователь'),
+            model_name="song",
+            name="user",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="songs",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="пользователь",
+            ),
         ),
     ]

@@ -5,20 +5,36 @@ import posts.models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Posts',
+            name="Posts",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=50, verbose_name='Название')),
-                ('description', models.CharField(max_length=400, verbose_name='Описание')),
-                ('post_image', models.ImageField(blank=True, upload_to=posts.models.user_directory_path_for_post_image, verbose_name='Изображение поста')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=50, verbose_name="Название")),
+                (
+                    "description",
+                    models.CharField(max_length=400, verbose_name="Описание"),
+                ),
+                (
+                    "post_image",
+                    models.ImageField(
+                        blank=True,
+                        upload_to=posts.models.user_directory_path_for_post_image,
+                        verbose_name="Изображение поста",
+                    ),
+                ),
             ],
         ),
     ]

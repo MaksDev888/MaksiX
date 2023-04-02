@@ -7,9 +7,14 @@ from config.settings import AUTH_USER_MODEL
 
 
 class Friend(models.Model):
-    to_user = models.ForeignKey(AUTH_USER_MODEL, models.CASCADE, related_name="friends", verbose_name='Отправитель')
+    to_user = models.ForeignKey(
+        AUTH_USER_MODEL,
+        models.CASCADE,
+        related_name="friends",
+        verbose_name="Отправитель",
+    )
     from_user = models.ForeignKey(
-        AUTH_USER_MODEL, models.CASCADE, verbose_name='Получатель'
+        AUTH_USER_MODEL, models.CASCADE, verbose_name="Получатель"
     )
     created = models.DateTimeField(default=timezone.now)
 
@@ -27,6 +32,5 @@ class Friend(models.Model):
         super().save(*args, **kwargs)
 
     class Meta:
-        verbose_name = 'Subscribers'
-        verbose_name_plural = 'Subscribers'
-
+        verbose_name = "Subscribers"
+        verbose_name_plural = "Subscribers"

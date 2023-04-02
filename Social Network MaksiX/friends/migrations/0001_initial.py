@@ -5,22 +5,28 @@ import django.utils.timezone
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Friend',
+            name="Friend",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created', models.DateTimeField(default=django.utils.timezone.now)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created", models.DateTimeField(default=django.utils.timezone.now)),
             ],
             options={
-                'verbose_name': 'Friend',
-                'verbose_name_plural': 'Friends',
+                "verbose_name": "Friend",
+                "verbose_name_plural": "Friends",
             },
         ),
     ]

@@ -7,32 +7,39 @@ from userdata.managers import UserManager
 
 def user_directory_path(instance, filename):
     """Функция создающая путь куда осуществляться загрузка MEDIA_ROOT/user_<id>/<filename> для Profile"""
-    return 'user_{0}/avatar/{1}'.format(instance.id, filename)
+    return "user_{0}/avatar/{1}".format(instance.id, filename)
 
 
 class UserProfile(AbstractUser):
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ["username"]
 
     GENDER = [
-        ('male', 'мужской'),
-        ('female', 'Женский'),
+        ("male", "мужской"),
+        ("female", "Женский"),
     ]
-    full_name = models.CharField(max_length=255, verbose_name='Полное имя')
+    full_name = models.CharField(max_length=255, verbose_name="Полное имя")
     email = models.EmailField(
-        _('email address'),
+        _("email address"),
         unique=True,
     )
-    avatar = models.ImageField(upload_to=user_directory_path, verbose_name='Изображение страницы',blank=True, null = True)
+    avatar = models.ImageField(
+        upload_to=user_directory_path,
+        verbose_name="Изображение страницы",
+        blank=True,
+        null=True,
+    )
     bio = models.CharField(max_length=7, choices=GENDER)
-    years_old = models.IntegerField(verbose_name='Возраст', blank=True,null=True)
-    address = models.CharField(max_length=255, verbose_name='Адрес', blank=True, null = True)
+    years_old = models.IntegerField(verbose_name="Возраст", blank=True, null=True)
+    address = models.CharField(
+        max_length=255, verbose_name="Адрес", blank=True, null=True
+    )
 
     objects = UserManager()
 
     class Meta:
-        verbose_name = 'Данные пользователя'
-        verbose_name_plural = 'Данные пользователя'
+        verbose_name = "Данные пользователя"
+        verbose_name_plural = "Данные пользователя"
 
     def save(self, *args, **kwargs):
         super(UserProfile, self).save(*args, **kwargs)
