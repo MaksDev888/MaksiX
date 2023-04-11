@@ -2,7 +2,6 @@ from django.contrib.auth.base_user import BaseUserManager
 
 from PIL import Image
 
-
 MAX_THUMBNAIL_SIZE = 200
 
 
@@ -11,7 +10,7 @@ class UserManager(BaseUserManager):
     Менеджер для создания user и superuser.
     """
 
-    def create_user(self, email, password, **extra_fields):
+    def create_user(self, email: str, password: str, **extra_fields) -> "User":
         """
         Метод обрабатывающий email, вызывает шифрование password.
         :param: validate_data.
@@ -26,7 +25,7 @@ class UserManager(BaseUserManager):
         user.save()
         return user
 
-    def create_superuser(self, email, password, **extra_fields):
+    def create_superuser(self, email: str, password: str, **extra_fields) -> "User":
         """
         Метод добавляющий superuser дефолтные поля.
         :param validate_data: Валидные данные.
@@ -43,7 +42,7 @@ class UserManager(BaseUserManager):
             raise ValueError("Superuser must have is_superuser = True")
         return self.create_user(email, password, **extra_fields)
 
-    def resize_logo(instance):
+    def resize_logo(instance) -> None:
         """
         Изменение размеров логотипа при большом размере изображения.
         """

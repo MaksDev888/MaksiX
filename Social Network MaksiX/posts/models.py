@@ -3,9 +3,9 @@ from django.db import models
 from config.settings import AUTH_USER_MODEL
 
 
-def user_directory_path_for_post_image(instance, filename):
+def user_directory_path_for_post_image(instance: object, filename: str) -> str:
     """Функция создающая путь куда осуществляется загрузка MEDIA_ROOT/user_<id>/posts_images/<filename> для Posts"""
-    return "user_{0}/posts_images/{1}".format(instance.user_id, filename)
+    return f"user_{instance.user_id}/posts_images/{filename}"
 
 
 class Posts(models.Model):

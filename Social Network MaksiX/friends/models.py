@@ -13,9 +13,7 @@ class Friend(models.Model):
         related_name="friends",
         verbose_name="Отправитель",
     )
-    from_user = models.ForeignKey(
-        AUTH_USER_MODEL, models.CASCADE, verbose_name="Получатель"
-    )
+    from_user = models.ForeignKey(AUTH_USER_MODEL, models.CASCADE, verbose_name="Получатель")
     created = models.DateTimeField(default=timezone.now)
 
     class Meta:
@@ -23,14 +21,11 @@ class Friend(models.Model):
         verbose_name_plural = _("Friends")
         unique_together = ("from_user", "to_user")
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"User #{self.to_user} is subscribed with #{self.from_user}"
 
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs) -> None:
         if self.to_user == self.from_user:
             raise ValidationError("Users cannot be friends with themselves.")
         super().save(*args, **kwargs)
 
-    class Meta:
-        verbose_name = "Subscribers"
-        verbose_name_plural = "Subscribers"

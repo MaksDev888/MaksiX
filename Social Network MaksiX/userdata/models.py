@@ -5,9 +5,9 @@ from django.utils.translation import gettext_lazy as _
 from userdata.managers import UserManager
 
 
-def user_directory_path(instance, filename):
+def user_directory_path(instance: object, filename: str) -> str:
     """Функция создающая путь куда осуществляться загрузка MEDIA_ROOT/user_<id>/<filename> для Profile"""
-    return "user_{0}/avatar/{1}".format(instance.id, filename)
+    return f"user_{instance.id}/avatar/{filename}"
 
 
 class UserProfile(AbstractUser):
@@ -31,9 +31,8 @@ class UserProfile(AbstractUser):
     )
     bio = models.CharField(max_length=7, choices=GENDER)
     years_old = models.IntegerField(verbose_name="Возраст", blank=True, null=True)
-    address = models.CharField(
-        max_length=255, verbose_name="Адрес", blank=True, null=True
-    )
+    address = models.CharField(max_length=255, verbose_name="Адрес", blank=True, null=True)
+    is_activate = models.BooleanField(default=False)
 
     objects = UserManager()
 
@@ -41,11 +40,11 @@ class UserProfile(AbstractUser):
         verbose_name = "Данные пользователя"
         verbose_name_plural = "Данные пользователя"
 
-    def save(self, *args, **kwargs):
-        super(UserProfile, self).save(*args, **kwargs)
+    def save(self, *args, **kwargs) -> None:
+        super().save(*args, **kwargs)
 
         if self.avatar:
             UserManager.resize_logo(self)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.username

@@ -11,6 +11,14 @@ __pycache__/
 *$py.class
 media/
 static/
+**.pytest_cache
+
+# my project file
+.github
+.pyproject.tolm
+.gitignore
+.ruff_cache
+pyproject.toml
 
 # C extensions
 *.so

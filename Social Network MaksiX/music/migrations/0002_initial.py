@@ -16,15 +16,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="song",
             name="user",
-            field=models.ManyToManyField(
-                blank=True, to=settings.AUTH_USER_MODEL, verbose_name="пользователь"
-            ),
+            field=models.ManyToManyField(blank=True, to=settings.AUTH_USER_MODEL, verbose_name="пользователь"),
         ),
         migrations.AddField(
             model_name="album",
             name="user",
-            field=models.ManyToManyField(
-                blank=True, to=settings.AUTH_USER_MODEL, verbose_name="Пользвователь"
-            ),
+            field=models.ManyToManyField(blank=True, to=settings.AUTH_USER_MODEL, verbose_name="Пользвователь"),
         ),
     ]

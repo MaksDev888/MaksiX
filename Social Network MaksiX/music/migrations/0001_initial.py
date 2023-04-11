@@ -26,9 +26,7 @@ class Migration(migrations.Migration):
                 ("name", models.CharField(max_length=255)),
                 (
                     "performer",
-                    models.CharField(
-                        blank=True, max_length=255, verbose_name="Исполнитель"
-                    ),
+                    models.CharField(blank=True, max_length=255, verbose_name="Исполнитель"),
                 ),
                 (
                     "photo",

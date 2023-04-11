@@ -4,11 +4,9 @@ from friends.models import Friend
 
 
 class FriendsAPISerializer(serializers.ModelSerializer):
-    from_user = serializers.ReadOnlyField(source="from_user.username")
-
-    def create(self, validated_data):
+    def create(self, validated_data: dict) -> Friend:
         return Friend.objects.create(**validated_data)
 
     class Meta:
         model = Friend
-        fields = ("from_user",)
+        fields = ("from_user", "to_user")

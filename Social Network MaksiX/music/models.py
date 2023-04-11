@@ -3,14 +3,14 @@ from django.db import models
 from userdata.models import UserProfile
 
 
-def user_directory_path_for_album_image(instance, filename):
+def user_directory_path_for_album_image(filename: str) -> str:
     """Функция создающая путь куда осуществляется загрузка MEDIA_ROOT/user_<id>/posts_images/<filename> для Posts"""
-    return "album_images/{0}".format(filename)
+    return f"album_images/{filename}"
 
 
-def user_directory_path_for_song_image(instance, filename):
+def user_directory_path_for_song_image(filename: str) -> str:
     """Функция создающая путь куда осуществляется загрузка MEDIA_ROOT/user_<id>/posts_images/<filename> для Posts"""
-    return "song/song_images/{0}".format(filename)
+    return f"song/song_images/{filename}"
 
 
 class Album(models.Model):
@@ -29,7 +29,6 @@ class Album(models.Model):
 
 
 class Song(models.Model):
-    objects = None
     name = models.CharField(max_length=255, verbose_name="Название песни")
     artist = models.CharField(max_length=255, verbose_name="Исполнитель")
     photo = models.ImageField(
@@ -37,12 +36,10 @@ class Song(models.Model):
         verbose_name="Фото песни",
         blank=True,
     )
-    album = models.ForeignKey(
-        Album, on_delete=models.CASCADE, verbose_name="Альбом", blank=True, null=True
-    )
-    user = models.ManyToManyField(
-        UserProfile, verbose_name="пользователь", blank=True, related_name="songs"
-    )
+    album = models.ForeignKey(Album, on_delete=models.CASCADE, verbose_name="Альбом", blank=True, null=True)
+    user = models.ManyToManyField(UserProfile, verbose_name="пользователь", blank=True, related_name="songs")
+
+    objects = None
 
     def __str__(self):
         return self.name
