@@ -14,7 +14,6 @@ static/
 **.pytest_cache
 
 # my project file
-.github
 .pyproject.tolm
 .gitignore
 .ruff_cache
