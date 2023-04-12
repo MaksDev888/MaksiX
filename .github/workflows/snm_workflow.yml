@@ -24,6 +24,13 @@ jobs:
                 python -m pip install --upgrade pip
                 pip install -r requirements.txt
 
+            - name: Search directory
+              run: |
+                pwd
+                cd ..
+                cd "Social Network MaksiX"
+                pwd
+
             - name: Test with pytest
               run: |
                 pwd
