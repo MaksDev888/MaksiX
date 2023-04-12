@@ -15,7 +15,7 @@ jobs:
           postgres:
             image: postgres:15.1-alpine
             env:
-              POSTGRES_DB: ${{secrets.DB_NAME}}
+              POSTGRES_DB: ${{ vars.DBB_NAME }}
               POSTGRES_USER: ${{secrets.DB_USER }}
               POSTGRES_PASSWORD: ${{secrets.DB_PASSWORD }}
             ports: [ '5432:5432' ]
@@ -34,12 +34,11 @@ jobs:
 
             - name: Migrations
               run: |
-                echo $SECRET_KEY
                 cd "Social Network MaksiX"
                 python manage.py migrate
               env:
                 SECRET_KEY: ${{ secrets.SECRET_KEY }}
-                DB_NAME: ${{ secrets.DB_NAME }}
+                DB_NAME: ${{ vars.DBB_NAME }}
                 DB_USER: ${{ secrets.DB_USER }}
                 DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
                 DB_HOST: ${{ secrets.DB_HOST }}
