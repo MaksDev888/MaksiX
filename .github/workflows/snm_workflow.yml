@@ -35,8 +35,8 @@ jobs:
 
             - name: Migrations
               run: |
-              cd "Social Network MaksiX"
-              python manage.py migrate
+                cd "Social Network MaksiX"
+                python manage.py migrate
               env:
                 SECRET_KEY: ${{ secrets.SECRET_KEY }}
                 DB_NAME: ${{ secrets.DB_NAME }}
@@ -51,8 +51,8 @@ jobs:
 
             - name: Test with pytest
               run: |
-              cd "Social Network MaksiX"
-              python manage.py test
+                cd "Social Network MaksiX"
+                python manage.py test
               env:
                 SECRET_KEY: ${{ secrets.SECRET_KEY }}
                 DB_NAME: ${{ secrets.DB_NAME }}
