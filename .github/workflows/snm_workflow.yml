@@ -5,7 +5,7 @@ on:
         branches:
             - develop
     pull_request:
-        branches:
+        base:
             - master
 
 jobs:
@@ -24,15 +24,12 @@ jobs:
                 python -m pip install --upgrade pip
                 pip install -r requirements.txt
 
-            - name: Migrations
-              run: |
-                python manage.py makemigrations
-                python manage.py migrate
-
             - name: Test with pytest
               run: |
+                cd "Social Network MaksiX"
                 python manage.py test
 
             - name: Run linter ruff
               run: |
+                cd "Social Network MaksiX"
                 ruff .
