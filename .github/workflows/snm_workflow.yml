@@ -28,7 +28,10 @@ jobs:
               run: |
                 pwd
                 cd ..
-                cd "Social Network MaksiX"
+                pwd
+                cd ..
+                pwd
+                cd ..
                 pwd
 
             - name: Test with pytest
