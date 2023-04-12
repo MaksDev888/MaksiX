@@ -28,9 +28,12 @@ jobs:
               run: |
                 pwd
                 cd ..
+                cd "Social Network MaksiX"
+                pwd
                 python manage.py test
 
             - name: Run linter ruff
               run: |
                 cd ..
+                cd "Social Network MaksiX"
                 ruff .
