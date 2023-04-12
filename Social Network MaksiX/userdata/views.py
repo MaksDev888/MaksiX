@@ -113,7 +113,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
 class LoginAPIView(knox_views.LoginView):
     """
-    Класс представления выполняющий авторизацию пользователя.
+    Класс представления выполняющий авторизацию пользователя
     """
 
     permission_classes = (AllowAny,)
