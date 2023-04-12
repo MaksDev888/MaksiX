@@ -34,6 +34,7 @@ jobs:
 
             - name: Migrations
               run: |
+                echo $SECRET_KEY
                 cd "Social Network MaksiX"
                 python manage.py migrate
               env:
