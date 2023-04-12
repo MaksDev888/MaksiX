@@ -36,15 +36,8 @@ jobs:
 
             - name: Search directory
               run: |
-                pwd
-                cd "Social Network MaksiX"
-                pwd
-                cd ..
-                pwd
-                cd ..
-                pwd
-                cd ..
-                pwd
+                print(SECRET_KEY)
+                print(DB_USER)
 
             - name: Test with pytest
               run: |
