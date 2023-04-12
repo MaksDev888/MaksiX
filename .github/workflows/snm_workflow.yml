@@ -26,10 +26,8 @@ jobs:
 
             - name: Test with pytest
               run: |
-                cd "Social Network MaksiX"
                 python manage.py test
 
             - name: Run linter ruff
               run: |
-                cd "Social Network MaksiX"
                 ruff .
