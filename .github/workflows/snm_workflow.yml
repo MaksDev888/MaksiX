@@ -1,9 +1,12 @@
 name: Social Network MaksiX
 
 on:
-    pull_request:
+    push:
         branches:
             - develop
+    pull_request:
+        branches:
+            - master
 
 jobs:
     build:
