@@ -16,8 +16,8 @@ jobs:
             image: postgres:15.1-alpine
             env:
               POSTGRES_DB: ${{ vars.DBB_NAME }}
-              POSTGRES_USER: ${{secrets.DB_USER }}
-              POSTGRES_PASSWORD: ${{secrets.DB_PASSWORD }}
+              POSTGRES_USER: ${{vars.DB_USERP }}
+              POSTGRES_PASSWORD: ${{vars.DB_PASSWORDP }}
             ports: [ '5432:5432' ]
 
         steps:
@@ -37,30 +37,30 @@ jobs:
                 cd "Social Network MaksiX"
                 python manage.py migrate
               env:
-                SECRET_KEY: ${{ secrets.SECRET_KEY }}
+                SECRET_KEY: ${{ vars.SECRET_KEYP }}
                 DB_NAME: ${{ vars.DBB_NAME }}
-                DB_USER: ${{ secrets.DB_USER }}
-                DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-                DB_HOST: ${{ secrets.DB_HOST }}
-                DB_PORT: ${{ secrets.DB_PORT }}
-                EMAIL_HOST_USER: ${{ secrets.EMAIL_HOST_USER }}
-                EMAIL_HOST_PASSWORD: ${{ secrets.EMAIL_HOST_PASSWORD }}
-                DEFAULT_FROM_EMAIL: ${{ secrets.DEFAULT_FROM_EMAIL }}
+                DB_USER: ${{ vars.DB_USERP }}
+                DB_PASSWORD: ${{ vars.DB_PASSWORDP }}
+                DB_HOST: ${{ vars.DB_HOSTP }}
+                DB_PORT: ${{ vars.DB_PORTP }}
+                EMAIL_HOST_USER: ${{ vars.EMAIL_HOST_USERP }}
+                EMAIL_HOST_PASSWORD: ${{ vars.EMAIL_HOST_PASSWORDP }}
+                DEFAULT_FROM_EMAIL: ${{ vars.DEFAULT_FROM_EMAILP }}
 
             - name: Test with pytest
               run: |
                 cd "Social Network MaksiX"
                 python manage.py test
               env:
-                SECRET_KEY: ${{ secrets.SECRET_KEY }}
-                DB_NAME: ${{ secrets.DB_NAME }}
-                DB_USER: ${{ secrets.DB_USER }}
-                DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-                DB_HOST: ${{ secrets.DB_HOST }}
-                DB_PORT: ${{ secrets.DB_PORT }}
-                EMAIL_HOST_USER: ${{ secrets.EMAIL_HOST_USER }}
-                EMAIL_HOST_PASSWORD: ${{ secrets.EMAIL_HOST_PASSWORD }}
-                DEFAULT_FROM_EMAIL: ${{ secrets.DEFAULT_FROM_EMAIL }}
+                SECRET_KEY: ${{ vars.SECRET_KEYP }}
+                DB_NAME: ${{ vars.DBB_NAME }}
+                DB_USER: ${{ vars.DB_USERP }}
+                DB_PASSWORD: ${{ vars.DB_PASSWORDP }}
+                DB_HOST: ${{ vars.DB_HOSTP }}
+                DB_PORT: ${{ vars.DB_PORTP }}
+                EMAIL_HOST_USER: ${{ vars.EMAIL_HOST_USERP }}
+                EMAIL_HOST_PASSWORD: ${{ vars.EMAIL_HOST_PASSWORDP }}
+                DEFAULT_FROM_EMAIL: ${{ vars.DEFAULT_FROM_EMAILP }}
 
             - name: Run linter ruff
               run: |
