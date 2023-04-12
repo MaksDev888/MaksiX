@@ -36,8 +36,15 @@ jobs:
 
             - name: Search directory
               run: |
-                print(SECRET_KEY)
-                print(DB_USER)
+                - echo $SECRET_KEY
+                - echo $DB_NAME
+                - echo $DB_USER
+                - echo $DB_PASSWORD
+                - echo $DB_HOST
+                - echo $DB_PORT
+                - echo $EMAIL_HOST_USER
+                - echo $EMAIL_HOST_PASSWORD
+                - echo $DEFAULT_FROM_EMAIL
 
             - name: Test with pytest
               run: |
