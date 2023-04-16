@@ -14,10 +14,8 @@ static/
 **.pytest_cache
 
 # my project file
-.pyproject.tolm
 .gitignore
 .ruff_cache
-pyproject.toml
 
 # C extensions
 *.so

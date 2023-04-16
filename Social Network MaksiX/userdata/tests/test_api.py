@@ -19,16 +19,28 @@ class UserApiTestCase(APITestCase):
 
     def setUp(self) -> None:
         self.user1 = UserProfile.objects.create(
-            password="examle1", username="user1", email="user1@mail.ru", full_name="user one", bio="male",
+            password="examle1",
+            username="user1",
+            email="user1@mail.ru",
+            full_name="user one",
+            bio="male",
             is_activate=True,
         )
 
         self.user2 = UserProfile.objects.create(
-            password="examle2", username="user2", email="user2@mail.ru", full_name="user two", bio="male",
+            password="examle2",
+            username="user2",
+            email="user2@mail.ru",
+            full_name="user two",
+            bio="male",
             is_activate=True,
         )
         self.user3 = UserProfile.objects.create(
-            password="examle3", username="user3", email="user3@mail.ru", full_name="user three", bio="male",
+            password="examle3",
+            username="user3",
+            email="user3@mail.ru",
+            full_name="user three",
+            bio="male",
             is_activate=True,
         )
 

@@ -1,0 +1,142 @@
+[tool.black]
+line-length = 120
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+select = ["ALL"]
+
+ignore = [
+    # [docstrings]
+    # Ignore google docstring format
+    "D",
+
+    # [flake8-annotations]
+    # Missing type annotation for self in method
+    "ANN101",
+    # Missing type annotation for cls in classmethod
+    "ANN102",
+    # Missing type annotation for args
+    "ANN002",
+    # Missing type annotation for kwargs
+    "ANN003",
+    # Missing type annotation for special method "__init__()"
+    "ANN204",
+
+    # [flake8-isort]
+    # Ignore import in the wrong position
+    "I001",
+
+    # [flake8-bandit]
+    # Ignore hardcoded password
+    "S105",
+    "S106",
+
+    # Ignore raise from raise
+    "B904",
+
+    # Ignore catch Exception
+    "BLE001",
+
+    # Ignore string/docstring/comment contains unicode character
+    "RUF001",
+    "RUF002",
+    "RUF003",
+
+    # Assign string to variable before exception
+    "EM101",
+    # Do not use bare `except`
+    "E722",
+    # Use of `assert` detected
+    "S101",
+    # `try`-`except`-`pass` detected, consider logging the exception
+    "S110",
+    # Unused method argument
+    "ARG002",
+    # Move application import into a type-checking block
+    "TCH001",
+    "TCH002",
+    # Exception name should be named with an Error suffix
+    "N818",
+    # Refactor
+    "PLR",
+    # Use `X | Y` for type annotations
+    "UP007",
+    # Avoid specifying long messages outside the exception class
+    "TRY003",
+    # Use `raise from` to specify exception cause
+    "TRY200",
+    # Unused blanket `noqa` directive
+    "PGH004",
+    "RUF100",
+    # Unnecessary `else` after `return` statement
+    "RET505",
+    # Avoid using `null=True` on string-based fields such as CharField
+    "DJ001",
+    # `os.remove()` should be replaced by `Path.unlink()`
+    "PTH107",
+    "PTH118",
+    "PTH123",
+    # Use `contextlib.suppress(Exception)` instead of try-except-pass
+    "SIM105",
+    # Undefined name `User`
+    "F821",
+    # First argument of a method should be named `self`
+    "N805",
+    # [*] No newline at end of file
+    "W292"
+]
+
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    ".idea",
+    "__pypackages__",
+    "__pycache__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
+    ".pytest_cache",
+    "manage.py",
+    "userdata/migrations",
+]
+
+[tool.ruff.per-file-ignores]
+"*/__init__.py" = ["F401"]
+
+[tool.ruff.flake8-quotes]
+docstring-quotes = "double"
+inline-quotes = "double"
+multiline-quotes = "double"
+
+[tool.poetry]
+name = "otus-spacebattle"
+version = "0.1.0"
+description = "Выработка навыка применения SOLID принципов на примере игры 'Космическая битва'"
+authors = ["Fedor Obolikhin <fedor.obolikhin@amonitoring.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pytest = "^7.2.2"
+black = "^23.3.0"
+ruff = "^0.0.260"
+pre-commit = "^3.2.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

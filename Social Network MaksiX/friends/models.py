@@ -28,4 +28,3 @@ class Friend(models.Model):
         if self.to_user == self.from_user:
             raise ValidationError("Users cannot be friends with themselves.")
         super().save(*args, **kwargs)
-

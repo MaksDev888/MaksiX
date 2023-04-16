@@ -20,21 +20,32 @@ class FollowingAPITestCase(APITestCase):
 
     def setUp(self) -> None:
         self.user = UserProfile.objects.create_user(
-            email="test_user@mail.ru", password="examle1", username="test_user", is_activate=True,
+            email="test_user@mail.ru",
+            password="examle1",
+            username="test_user",
+            is_activate=True,
         )
         self.user2 = UserProfile.objects.create_user(
-            email="test_user2@mail.ru", password="examle1", username="test_user1", is_activate=True,
+            email="test_user2@mail.ru",
+            password="examle1",
+            username="test_user1",
+            is_activate=True,
         )
         self.user3 = UserProfile.objects.create_user(
-            email="test_user3@mail.ru", password="examle1", username="test_user2", is_activate=True,
+            email="test_user3@mail.ru",
+            password="examle1",
+            username="test_user2",
+            is_activate=True,
         )
         self.user4 = UserProfile.objects.create_user(
-            email="test_user4@mail.ru", password="examle1", username="test_user3", is_activate=True,
+            email="test_user4@mail.ru",
+            password="examle1",
+            username="test_user3",
+            is_activate=True,
         )
 
         Friend.objects.create(from_user=self.user, to_user=self.user2)
         Friend.objects.create(from_user=self.user, to_user=self.user3)
-
 
     @pytest.mark.django_db()
     def test_get_user_following(self) -> None:
