@@ -11,6 +11,12 @@ __pycache__/
 *$py.class
 media/
 static/
+**.pytest_cache
+
+# my project file
+.gitignore
+.ruff_cache
+.env.docker
 
 # C extensions
 *.so
