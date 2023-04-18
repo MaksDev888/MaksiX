@@ -1,4 +1,4 @@
-name: Social Network MaksiX
+name: Social_Network_MaksiX
 
 on:
     push:
@@ -34,7 +34,7 @@ jobs:
 
             - name: Migrations
               run: |
-                cd "Social Network MaksiX"
+                cd "Social_Network_MaksiX"
                 python manage.py migrate
               env:
                 SECRET_KEY: ${{ vars.SECRET_KEY }}
@@ -49,7 +49,7 @@ jobs:
 
             - name: Test with pytest
               run: |
-                cd "Social Network MaksiX"
+                cd "Social_Network_MaksiX"
                 python manage.py test
               env:
                 SECRET_KEY: ${{ vars.SECRET_KEY }}
@@ -64,5 +64,5 @@ jobs:
 
             - name: Run linter ruff
               run: |
-                cd "Social Network MaksiX"
+                cd "Social_Network_MaksiX"
                 ruff .
