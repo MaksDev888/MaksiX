@@ -16,6 +16,8 @@ static/
 # my project file
 .gitignore
 .ruff_cache
+.env.docker
+requirements-docker.txt
 
 # C extensions
 *.so

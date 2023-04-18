@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+    maksix_web:
+      build: .
+      command: >
+        sh -c "python manage.py migrate &&
+               python manage.py runserver 0.0.0.0:8000"
+
+      volumes:
+        - .:/usr/scr/MaksiX/Social_Network_MaksiX
+      ports:
+        - 8000:8000
+      env_file:
+        - ./Social_Network_MaksiX/.env
+      depends_on:
+        - maksix_db
+    maksix_db:
+      image: postgres:15.1-alpine
+      volumes:
+        - postgres_data:/var/lib/postgresql/data
+      ports:
+        - "5432:5432"
+
+volumes:
+  postgres_data:
